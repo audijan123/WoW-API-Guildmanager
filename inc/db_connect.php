@@ -2,7 +2,7 @@
  
 class DbConnect
 {
-    //Variable to store database link
+    //Variable to store database link1
     private $con;
  
     //Class constructor
