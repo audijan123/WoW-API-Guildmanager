@@ -318,7 +318,7 @@ class wow_api
                         echo "<p>####(".$current_char_index."/".$count_member_to_update.") Lade Charakter Update für: " . $row['name'] . "###</p>";
                         if ($row['name'] != "" && $row['realm'] != "") {
                         if($update_personal_data){
-                            $char_more_data = $this->get_data($this->wow_api_profile_main . basic_func_convert_name_to_url($row['realm']) . "/" . basic_func_convert_name_to_url($row['name']) . "?namespace=".$this->$this->namespace_profile."&locale=" . $this->current_lang);
+                            $char_more_data = $this->get_data($this->wow_api_profile_main . basic_func_convert_name_to_url($row['realm']) . "/" . basic_func_convert_name_to_url($row['name']) . "?namespace=".$this->namespace_profile."&locale=" . $this->current_lang);
                             if($this->save_char_information($row['uid'], $char_more_data)){
                                 echo "<p>".$row['name'] . ": Carakterinformationen wurden erfolgreich aktualisiert</p>";
                             }else{
@@ -326,7 +326,7 @@ class wow_api
                             }
                         }
                         if($update_item_data){
-                            $char_eq_data = $this->get_data($this->wow_api_profile_main . basic_func_convert_name_to_url($row['realm']) . "/" . basic_func_convert_name_to_url($row['name']) . "/equipment?namespace=".$this->$this->namespace_profile."&locale=" . $this->current_lang);
+                            $char_eq_data = $this->get_data($this->wow_api_profile_main . basic_func_convert_name_to_url($row['realm']) . "/" . basic_func_convert_name_to_url($row['name']) . "/equipment?namespace=".$this->namespace_profile."&locale=" . $this->current_lang);
                             if($this->save_char_items($row['uid'], $char_eq_data)){
                                 echo "<p>".$row['name'] . ": Carakter Iteminformationen wurden erfolgreich aktualisiert</p>";
                             }else{
@@ -397,7 +397,7 @@ class wow_api
 
     public function update_raiting_data($name, $uid, $realm)
     {
-        $char_m_plus_data = $this->get_data($this->wow_api_profile_main . basic_func_convert_name_to_url($realm) . "/" . basic_func_convert_name_to_url($name) . "/mythic-keystone-profile?namespace=".$this->$this->namespace_profile."&locale=" . $this->current_lang);
+        $char_m_plus_data = $this->get_data($this->wow_api_profile_main . basic_func_convert_name_to_url($realm) . "/" . basic_func_convert_name_to_url($name) . "/mythic-keystone-profile?namespace=".$this->namespace_profile."&locale=" . $this->current_lang);
         if (!empty($char_m_plus_data) && isset($char_m_plus_data['current_mythic_rating']) && !empty($char_m_plus_data['current_mythic_rating'])) {
             $m_chest_str = $this->extract_m_chest($char_m_plus_data);
             if ($this->update_value($uid, "uid", $char_m_plus_data['current_mythic_rating']['rating'], "raiting", "chars") && $this->update_value($uid, "uid", $m_chest_str, "m_chest", "chars")) {
@@ -412,7 +412,7 @@ class wow_api
 
     public function update_raid_data($name, $uid, $realm)
     {
-        $member_raid_data = $this->get_data($this->wow_api_profile_main . "/" . basic_func_convert_name_to_url($realm) . "/" . basic_func_convert_name_to_url($name) . "/encounters/raids?namespace=".$this->$this->namespace_profile."&locale=" . $this->current_lang);
+        $member_raid_data = $this->get_data($this->wow_api_profile_main . "/" . basic_func_convert_name_to_url($realm) . "/" . basic_func_convert_name_to_url($name) . "/encounters/raids?namespace=".$this->namespace_profile."&locale=" . $this->current_lang);
         $array_lfr_data = array();
         $array_normal_data = array();
         $array_hc_data = array();
