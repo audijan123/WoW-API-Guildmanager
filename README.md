@@ -1,0 +1,1 @@
+# WoW-API-Guildmanager
