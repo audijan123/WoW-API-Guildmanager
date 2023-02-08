@@ -239,3 +239,16 @@ dd {
     padding: 10px;
   }
 }
+
+p.output{
+  margin: 0px;
+  padding: 0px;
+}
+
+p.output.danger{
+  color: red;
+}
+
+p.output.success{
+  color: #00ff0d;
+}

@@ -294,9 +294,9 @@ class wow_api
     //UPDATE DATA FUNCTION
     public function update_all_data(){
         //update_roaster
-        echo "<p>#### Update Gildendaten ###</p>";
+        echo "<p class='output'>#### Update Gildendaten ###</p>";
         $this->update_guild("","",false);
-        echo "<p>#### Gildendaten wurden erneuert###</p>";
+        echo "<p class='output success'>#### Gildendaten wurden erneuert###</p>";
         //update_char
         $this->char_updater(true,true,true,true);
     }
@@ -311,52 +311,52 @@ class wow_api
                         $count_member_to_update = count($update_only_uids);
                     }
                   
-                    echo "<p>#### (0/".$count_member_to_update.") Charaktere ###</p>";
+                    echo "<p class='output'>#### (0/".$count_member_to_update.") Charaktere ###</p>";
                     while ($row = mysqli_fetch_array($result)) {
                         if(empty($update_only_uids) || in_array($row['uid'],$update_only_uids)){
                             $current_char_index++;
-                        echo "<p>####(".$current_char_index."/".$count_member_to_update.") Lade Charakter Update für: " . $row['name'] . "###</p>";
+                        echo "<p class='output'>####(".$current_char_index."/".$count_member_to_update.") Lade Charakter Update für: " . $row['name'] . "###</p>";
                         if ($row['name'] != "" && $row['realm'] != "") {
                         if($update_personal_data){
                             $char_more_data = $this->get_data($this->wow_api_profile_main . basic_func_convert_name_to_url($row['realm']) . "/" . basic_func_convert_name_to_url($row['name']) . "?namespace=".$this->namespace_profile."&locale=" . $this->current_lang);
                             if($this->save_char_information($row['uid'], $char_more_data)){
-                                echo "<p>".$row['name'] . ": Carakterinformationen wurden erfolgreich aktualisiert</p>";
+                                echo "<p class='output success'>".$row['name'] . ": Carakterinformationen wurden erfolgreich aktualisiert</p>";
                             }else{
-                                echo "<p>".$row['name'] . ": Carakterinformationen konnten nicht erfolgreich aktualisiert werden</p>";
+                                echo "<p class='output danger'>".$row['name'] . ": Carakterinformationen konnten nicht erfolgreich aktualisiert werden</p>";
                             }
                         }
                         if($update_item_data){
                             $char_eq_data = $this->get_data($this->wow_api_profile_main . basic_func_convert_name_to_url($row['realm']) . "/" . basic_func_convert_name_to_url($row['name']) . "/equipment?namespace=".$this->namespace_profile."&locale=" . $this->current_lang);
                             if($this->save_char_items($row['uid'], $char_eq_data)){
-                                echo "<p>".$row['name'] . ": Carakter Iteminformationen wurden erfolgreich aktualisiert</p>";
+                                echo "<p class='output success'>".$row['name'] . ": Carakter Iteminformationen wurden erfolgreich aktualisiert</p>";
                             }else{
-                                echo "<p>".$row['name'] . ": Carakter Iteminformationen konnten nicht erfolgreich aktualisiert werden</p>";
+                                echo "<p class='output danger'>".$row['name'] . ": Carakter Iteminformationen konnten nicht erfolgreich aktualisiert werden</p>";
                             }
                         }
 
                         if($update_raid_data){
                             if($this->update_raid_data($row['name'], $row['uid'], $row['realm'])){
-                                echo "<p>".$row['name'] . ": Carakter Raidinformationen wurden erfolgreich aktualisiert</p>";
+                                echo "<p class='output success'>".$row['name'] . ": Carakter Raidinformationen wurden erfolgreich aktualisiert</p>";
                             }else{
-                                echo "<p>".$row['name'] . ": Carakter Raidinformationen konnten nicht erfolgreich aktualisiert werden</p>";
+                                echo "<p class='output danger'>".$row['name'] . ": Carakter Raidinformationen konnten nicht erfolgreich aktualisiert werden</p>";
                             }
                         }
 
                         if($update_m_data){
                             if(  $this->update_raiting_data($row['name'], $row['uid'], $row['realm'])){
-                                echo "<p>".$row['name'] . ": Carakter Mythic Plus Daten wurden erfolgreich aktualisiert</p>";
+                                echo "<p class='output success'>".$row['name'] . ": Carakter Mythic Plus Daten wurden erfolgreich aktualisiert</p>";
                             }else{
-                                echo "<p>".$row['name'] . ": Carakter Mythic Plus Daten konnten nicht erfolgreich aktualisiert werden</p>";
+                                echo "<p class='output danger'>".$row['name'] . ": Carakter Mythic Plus Daten konnten nicht erfolgreich aktualisiert werden</p>";
                             }
                         }
 
-                        echo "<p>#### Charakter Update für: " . $row['name'] . " wurde erfolgreich durchgeführt ###</p>";
+                        echo "<p class='output'>#### Charakter Update für: " . $row['name'] . " wurde erfolgreich durchgeführt ###</p>";
                         }else{
-                            echo "<p>#### Charakter Update für: " . $row['name'] . " konnte nicht durchgeführt werden - Realm oder Name ungültig ###</p>";
+                            echo "<p class='output danger'>#### Charakter Update für: " . $row['name'] . " konnte nicht durchgeführt werden - Realm oder Name ungültig ###</p>";
                         }
                     }
                 }
-                echo "<p>#### (".$count_member_to_update."/".$count_member_to_update.") Update Fertig ###</p>";
+                echo "<p class='output'>#### (".$count_member_to_update."/".$count_member_to_update.") Update Fertig ###</p>";
                 return true;
                 }
             }else{
@@ -374,24 +374,24 @@ class wow_api
             $realm = $this->current_realm;
         }
         if ($output) {
-            echo "<p>Update Guildroster</p>";
+            echo "<p class='output'>Update Guildroster</p>";
         }
         $response = $this->get_data($this->wow_api_guild_roster . "/" . $realm . "/" . urlencode($guildname) . "/roster?namespace=" . $this->namespace_profile . "&locale=" . $this->current_lang);
         if ($output) {
-            echo "<p>Update speicher char to guild roster</p>";
+            echo "<p class='output'>Add member to guild</p>";
         }
         $current_update_char = 0;
         $max_update_char = count($response['members']);
         foreach ($response['members'] as $guildmate) {
             if(!$this->save_guild_member($guildmate)){
-                echo "<p>Fehler:" . $char_data['character']['name'] . " konnte nicht geupdatet werden!</p>";
+                echo "<p  class='output danger'>Fehler:" . $char_data['character']['name'] . " konnte nicht geupdatet werden!</p>";
              
             }
         }
 
         if ($output) {
 
-            echo "<p>Update Guild finish</p>";
+            echo "<p  class='output'>Update Guild finish</p>";
         }
     }
 
