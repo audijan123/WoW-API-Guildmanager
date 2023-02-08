@@ -315,7 +315,7 @@ class wow_api
                     while ($row = mysqli_fetch_array($result)) {
                         if(empty($update_only_uids) || in_array($row['uid'],$update_only_uids)){
                             $current_char_index++;
-                        echo "<p class='output'>####(".$current_char_index."/".$count_member_to_update.") Lade Charakter Update für: " . $row['name'] . "###</p>";
+                        echo "<hr><p class='output'>####(".$current_char_index."/".$count_member_to_update.") Lade Charakter Update für: " . $row['name'] . "###</p>";
                         if ($row['name'] != "" && $row['realm'] != "") {
                         if($update_personal_data){
                             $char_more_data = $this->get_data($this->wow_api_profile_main . basic_func_convert_name_to_url($row['realm']) . "/" . basic_func_convert_name_to_url($row['name']) . "?namespace=".$this->namespace_profile."&locale=" . $this->current_lang);
